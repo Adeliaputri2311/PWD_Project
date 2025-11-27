@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Fashion - Fashion Wanita Eksklusif</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Adelia Fashion</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="collection.html">Collection</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">
+                    <span class="cart-icon">🛍️</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-subtitle">Spring Collection 2025</h2>
+            <h1 class="hero-title">Elegansi Dalam<br>Setiap Langkah</h1>
+            <p class="hero-description">Temukan koleksi fashion terbaru yang dirancang khusus untuk wanita modern yang percaya diri</p>
+            <a href="collection.html" class="btn btn-primary">Jelajahi Koleksi</a>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Produk Pilihan</h2>
+                <p class="section-subtitle">Koleksi terbaik kami bulan ini</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">New</div>
+                        <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Elegant Floral Dress</h3>
+                        <p class="product-category">Dresses</p>
+                        <div class="product-footer">
+                            <span class="product-price">Rp 450.000</span>
+                            <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge sale">Sale</div>
+                        <img src="https://images.unsplash.com/photo-1564257577-7fd07d5b305c?w=400" alt="Classic Blouse">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Classic Silk Blouse</h3>
+                        <p class="product-category">Tops</p>
+                        <div class="product-footer">
+                            <span class="product-price">Rp 320.000</span>
+                            <button class="btn-add-cart" onclick="addToCart('Classic Silk Blouse', 320000)">+ Keranjang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=400" alt="Summer Skirt">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Pleated Summer Skirt</h3>
+                        <p class="product-category">Skirts</p>
+                        <div class="product-footer">
+                            <span class="product-price">Rp 380.000</span>
+                            <button class="btn-add-cart" onclick="addToCart('Pleated Summer Skirt', 380000)">+ Keranjang</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Belanja Berdasarkan Kategori</h2>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400" alt="Dresses">
+                    <div class="category-overlay">
+                        <h3>Dresses</h3>
+                        <a href="collection.html" class="btn btn-secondary">Lihat Semua</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400" alt="Tops">
+                    <div class="category-overlay">
+                        <h3>Tops & Blouses</h3>
+                        <a href="collection.html" class="btn btn-secondary">Lihat Semua</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=400" alt="Accessories">
+                    <div class="category-overlay">
+                        <h3>Accessories</h3>
+                        <a href="collection.html" class="btn btn-secondary">Lihat Semua</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Adelia Fashion</h3>
+                    <p>Fashion eksklusif untuk wanita modern yang percaya diri dan elegan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="collection.html">Collection</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hubungi Kami</h4>
+                    <p>Email: adeliaptr2305@gmail.com</p>
+                    <p>Phone: +62 857-2228-8968</p>
+                    <p>Instagram: @adeliaasfashion</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Adelia Fashion. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
