@@ -74,12 +74,12 @@ img {
 .cart-count {
     position: absolute;
     top: -10px;
-    right: -13px;
+    right: -14px;
     background: #b96c6c;
     color: #fff;
     font-size: 12px;
     padding: 2px 6px;
-    border-radius: 50%;
+    border-radius: 60%;
 }
 
 /* Hamburger */
@@ -100,7 +100,7 @@ img {
 /* ---------- Page Header (Halaman Collection/About/Contact/Cart) ---------- */
 .page-header {
     padding: 120px 0 50px;
-    background: #f7f5f4;
+    background: #ded1cb;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -313,14 +313,14 @@ img {
     display: flex;
     justify-content: flex-end;
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 24px;
 }
 
 .filter-select {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 14px;
+    padding: 9px 14px;
+    border: 1px solid #e0990b;
+    border-radius: 10px;
+    font-size: 13px;
     cursor: pointer;
 }
 
@@ -437,7 +437,7 @@ img {
 
 /* ---------- Footer ---------- */
 .footer {
-    background: #222;
+    background: #070606;
     color: #fff;
     padding: 60px 0 30px;
     margin-top: 60px;
@@ -445,7 +445,7 @@ img {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(251px, 1fr));
     gap: 30px;
 }
 
@@ -478,7 +478,7 @@ img {
         top: 75px;
         right: 0;
         background: #fff;
-        width: 220px;
+        width: 221px;
         flex-direction: column;
         padding: 20px;
         display: none;
