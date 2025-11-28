@@ -7,8 +7,8 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    line-height: 1.8;
-    color: #333;
+    line-height: 1.9;
+    color: #242323;
     background-color: #fffffff3;
 }
 
@@ -89,12 +89,12 @@ img {
 }
 
 .hamburger span {
-    width: 28px;
+    width: 29px;
     height: 3px;
     background: #333;
     display: block;
     margin: 5px 0;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 /* ---------- Page Header (Halaman Collection/About/Contact/Cart) ---------- */
@@ -143,13 +143,13 @@ img {
 }
 
 .hero-description {
-    max-width: 453px;
-    margin-bottom: 27px;
+    max-width: 454px;
+    margin-bottom: 28px;
 }
 
 /* ---------- Buttons ---------- */
 .btn {
-    padding: 13px 26px;
+    padding: 13px 27px;
     font-size: 14px;
     border-radius: 26px;
     border: none;
