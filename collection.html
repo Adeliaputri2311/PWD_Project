@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANR Fashion - Fashion Wanita Eksklusif</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>ANR Fashion</h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="collection.html" class="active">Collection</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">
+                    <span class="cart-icon">🛍️</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+</body>
+
+<section class="page-header">
+    <div class="container">
+        <h1 class="page-title">Koleksi Terbaru</h1>
+        <p class="page-subtitle">Temukan gaya terbaik yang dirancang untuk wanita modern</p>
+    </div>
+</section>
+
+<section class="collection-section">
+    <div class="container">
+        <div class="filters">
+            <select class="filter-select">
+                <option>Semua Kategori</option>
+                <option>Dresses</option>
+                <option>Tops & Blouses</option>
+                <option>Skirts</option>
+                <option>Accessories</option>
+            </select>
+
+            <select class="filter-select">
+                <option>Urutkan</option>
+                <option>Harga Terendah</option>
+                <option>Harga Tertinggi</option>
+                <option>Terbaru</option>
+            </select>
+        </div>
+
+        <div class="product-grid">
+            <!-- Card Produk Contoh -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 50.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 50000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 450.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 450.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 450.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 450.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 450.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 450.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400" alt="Elegant Dress">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Elegant Floral Dress</h3>
+                    <p class="product-category">Dresses</p>
+                    <div class="product-footer">
+                        <span class="product-price">Rp 450.000</span>
+                        <button class="btn-add-cart" onclick="addToCart('Elegant Floral Dress', 450000)">+ Keranjang</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tambahkan produk lain di sini -->
+        </div>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ANR Fashion</h3>
+                    <p>Fashion eksklusif untuk wanita modern yang percaya diri dan elegan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="collection.html">Collection</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Hubungi Kami</h4>
+                    <p>Email: anr656@gmail.com</p>
+                    <p>Phone: +62 857-2228-8968</p>
+                    <p>Instagram: @ANRfashion</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ANR Fashion. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
