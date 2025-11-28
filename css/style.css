@@ -7,8 +7,8 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    line-height: 1.7;
-    color: #333;
+    line-height: 1.9;
+    color: #242323;
     background-color: #fffffff3;
 }
 
@@ -31,7 +31,7 @@ img {
     top: 0;
     background: #fff;
     padding: 20px 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(6, 6, 6, 0.338);
     z-index: 1000;
 }
 
@@ -43,22 +43,22 @@ img {
 
 .logo h1 {
     font-family: "Playfair Display", serif;
-    font-size: 28px;
+    font-size: 29px;
     font-weight: 700;
     color: #222;
 }
 
 .nav-menu {
     display: flex;
-    gap: 25px;
+    gap: 26px;
     list-style: none;
 }
 
 .nav-menu li a {
     text-decoration: none;
-    color: #333;
+    color: #121212;
     font-weight: 500;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .nav-menu li a:hover,
@@ -89,27 +89,27 @@ img {
 }
 
 .hamburger span {
-    width: 28px;
+    width: 29px;
     height: 3px;
     background: #333;
     display: block;
     margin: 5px 0;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 /* ---------- Page Header (Halaman Collection/About/Contact/Cart) ---------- */
 .page-header {
     padding: 130px 0 50px;
-    background: #c19885;
+    background: #9a7e71;
     text-align: center;
     margin-bottom: 40px;
 }
 
 .page-title {
     font-family: "Playfair Display", serif;
-    font-size: 42px;
-    font-weight: 700;
-    color: #222;
+    font-size: 43px;
+    font-weight: 701;
+    color: #151515;
 }
 
 .page-subtitle {
@@ -132,24 +132,24 @@ img {
 .hero-title {
     font-family: "Playfair Display", serif;
     font-size: 60px;
-    line-height: 1.3;
-    margin-bottom: 17px;
+    line-height: 1.4;
+    margin-bottom: 18px;
 }
 
 .hero-subtitle {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 500;
     margin-bottom: 10px;
 }
 
 .hero-description {
-    max-width: 451px;
-    margin-bottom: 26px;
+    max-width: 454px;
+    margin-bottom: 28px;
 }
 
 /* ---------- Buttons ---------- */
 .btn {
-    padding: 13px 26px;
+    padding: 13px 27px;
     font-size: 14px;
     border-radius: 26px;
     border: none;
