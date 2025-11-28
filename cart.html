@@ -17,8 +17,8 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="collection.html">Collection</a></li>
-                <li><a href="about.html" >About</a></li>
-                <li><a href="contact.html"class="active">Contact</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li><a href="cart.html" class="cart-link">
                     <span class="cart-icon">🛍️</span>
                     <span class="cart-count" id="cartCount">0</span>
@@ -35,26 +35,33 @@
 
 <section class="page-header">
     <div class="container">
-        <h1 class="page-title">Hubungi Kami</h1>
-        <p class="page-subtitle">Kami siap membantu Anda kapan saja</p>
+        <h1 class="page-title">Keranjang Belanja</h1>
+        <p class="page-subtitle">Periksa pilihan Anda sebelum checkout</p>
     </div>
 </section>
 
-<section class="contact-section">
-    <div class="container contact-grid">
-        <div class="contact-info">
-            <h2>Informasi Kontak</h2>
-            <p>Email: anr656@gmail.com</p>
-            <p>Phone: +62 857-2228-8968</p>
-            <p>Instagram: @ANRfashion</p>
-        </div>
+<section class="cart-section">
+    <div class="container">
+        <table class="cart-table" id="cartItems">
+            <thead>
+                <tr>
+                    <th>Produk</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data keranjang dari script.js -->
+            </tbody>
+        </table>
 
-        <form class="contact-form">
-            <input type="text" placeholder="Nama" required>
-            <input type="email" placeholder="Email" required>
-            <textarea placeholder="Pesan Anda" rows="6" required></textarea>
-            <button type="submit" class="btn btn-primary">Kirim Pesan</button>
-        </form>
+        <div class="cart-summary">
+            <h3>Total Pembayaran:</h3>
+            <p class="total-price" id="totalPrice">Rp 0</p>
+            <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+        </div>
     </div>
 </section>
 
@@ -78,9 +85,9 @@
                 </div>
                 <div class="footer-section">
                     <h4>Hubungi Kami</h4>
-                    <p>Email: anr656@gmail.com</p>
+                    <p>Email: anr656gmail.com</p>
                     <p>Phone: +62 857-2228-8968</p>
-                    <p>Instagram: @anrfashion</p>
+                    <p>Instagram: @ANRfashion</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -92,3 +99,4 @@
     <script src="js/script.js"></script>
 </body>
 </html>
+
