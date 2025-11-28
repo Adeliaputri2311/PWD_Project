@@ -132,8 +132,8 @@ img {
 .hero-title {
     font-family: "Playfair Display", serif;
     font-size: 60px;
-    line-height: 1.2;
-    margin-bottom: 15px;
+    line-height: 1.3;
+    margin-bottom: 17px;
 }
 
 .hero-subtitle {
@@ -143,15 +143,15 @@ img {
 }
 
 .hero-description {
-    max-width: 450px;
-    margin-bottom: 25px;
+    max-width: 451px;
+    margin-bottom: 26px;
 }
 
 /* ---------- Buttons ---------- */
 .btn {
-    padding: 12px 25px;
-    font-size: 15px;
-    border-radius: 25px;
+    padding: 13px 26px;
+    font-size: 14px;
+    border-radius: 26px;
     border: none;
     cursor: pointer;
     display: inline-block;
