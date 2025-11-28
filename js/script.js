@@ -1,3 +1,9 @@
+// === GLOBAL DRAG STATE ===
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+const THRESHOLD = 70;
+
 /* script.js - Bella Mode
    Features:
    - Hamburger menu toggle
@@ -372,5 +378,299 @@
     clearCart,
     addToCart,
   };
+
+// Swipe gesture
+(function () {
+  'use strict';
+
+function startDrag(x) {
+  isDragging = true;
+  startX = x;
+}
+
+function moveDrag(x) {
+  currentX = x - startX;
+}
+
+function triggerNavigation(fn) {
+  // lock agar tidak double navigation
+  if (isDragging) return;
+  fn();
+}
+
+  // pages order (sesuaikan urutan)
+  const PAGES = ["index.html", "collection.html", "about.html", "contact.html"];
+
+  // fallback: juga anggap path '' atau '/' sebagai index
+  function normalizePath(p) {
+    if (!p || p === '/') return 'index.html';
+    // remove query string or hash
+    const clean = p.split('?')[0].split('#')[0];
+    // if path ends with '/', treat as index
+    if (clean.endsWith('/')) return 'index.html';
+    return clean.split('/').pop();
+  }
+
+  // Get overlay element and guard
+  const overlay = document.getElementById('transition-overlay');
+  if (!overlay) {
+    console.warn('transition-overlay not found. Pastikan <div id="transition-overlay"></div> ada di dalam <body>.');
+  }
+
+  // Gesture state
+  let startX = 0;
+
+  document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  document.addEventListener("touchend", e => {
+    const endX = e.changedTouches[0].clientX;
+
+    if (startX - endX > 80) goNextPage(); // swipe kiri
+    if (endX - startX > 80) goPrevPage(); // swipe kanan
+  });
+
+  document.addEventListener("mousedown", e => startX = e.clientX);
+  document.addEventListener("mouseup", e => {
+    if (startX - e.clientX > 80) goNextPage();
+    if (e.clientX - startX > 80) goPrevPage();
+  });
+
+
+  // Simple debounce to avoid double navigation
+  function triggerNavigation(fn) {
+    if (triggered) return;
+    triggered = true;
+    try {
+      fn();
+    } catch (e) {
+      console.error(e);
+      triggered = false;
+    }
+    // safety reset jika masih di halaman yang sama (rare)
+    setTimeout(() => { triggered = false; }, 2000);
+  }
+
+  // Start / Move / End
+  function startDrag(x) {
+    // ignore if clicking on form elements
+    const el = getEventTargetElement();
+    if (el && /input|textarea|select|button/i.test(el.tagName)) {
+      return;
+    }
+    startX = x;
+    currentX = 0;
+    isDragging = true;
+  }
+
+  function moveDrag(x) {
+    if (!isDragging) return;
+    currentX = x - startX;
+  }
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+
+    if (Math.abs(currentX) < THRESHOLD) {
+      currentX = 0;
+      return;
+    }
+
+    if (currentX < -THRESHOLD) {
+      triggerNavigation(goNextPage);
+    } else if (currentX > THRESHOLD) {
+      triggerNavigation(goPrevPage);
+    }
+    currentX = 0;
+  }
+
+  // Helpers
+  function getEventTargetElement() {
+    // last active element that user interacted with; fallback document.activeElement
+    return document.activeElement || null;
+  }
+
+  function pageTransition(targetUrl) {
+    if (!overlay) {
+      // fallback: langsung pindah
+      window.location.href = targetUrl;
+      return;
+    }
+    // aktifkan overlay lalu navigasi
+    overlay.classList.add('active');
+
+    // optional: beri sedikit delay agar transition terlihat natural
+    setTimeout(() => {
+      window.location.href = targetUrl;
+    }, 380);
+  }
+
+  function goNextPage() {
+    const pages = ["index.html", "collection.html", "about.html", "contact.html"];
+    const current = window.location.pathname.split("/").pop();
+    let idx = pages.indexOf(current);
+
+    const next = (idx === pages.length - 1) ? pages[0] : pages[idx + 1];
+    pageTransitionHypercube(next, false);
+  }
+
+  function goPrevPage() {
+    const pages = ["index.html", "collection.html", "about.html", "contact.html"];
+    const current = window.location.pathname.split("/").pop();
+    let idx = pages.indexOf(current);
+
+    const prev = (idx === 0) ? pages[pages.length - 1] : pages[idx - 1];
+    pageTransitionHypercube(prev, true);
+  }
+
+
+  // Attach events after DOM ready to be safe
+  function addListeners() {
+    // Touch events (mobile)
+    document.addEventListener('touchstart', function (e) {
+      if (!e.touches || e.touches.length > 1) return; // ignore multi-touch
+      startDrag(e.touches[0].clientX);
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      if (!isDragging) return;
+      moveDrag(e.touches[0].clientX);
+    }, { passive: true });
+
+    document.addEventListener('touchend', function () {
+      endDrag();
+    }, { passive: true });
+
+    // Mouse events (desktop)
+    document.addEventListener('mousedown', function (e) {
+      // left button only
+      if (e.button !== 0) return;
+      startDrag(e.clientX);
+    });
+
+    document.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      moveDrag(e.clientX);
+    });
+
+    document.addEventListener('mouseup', function () {
+      endDrag();
+    });
+
+    document.addEventListener('mouseleave', function () {
+      // treat leaving window as end
+      if (isDragging) endDrag();
+    });
+
+    // Optional: keyboard arrows for desktop (left/right)
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') {
+        triggerNavigation(goPrevPage);
+      } else if (e.key === 'ArrowRight') {
+        triggerNavigation(goNextPage);
+      }
+    });
+  }
+
+  // Wait DOMContentLoaded if script placed in head; if script is at end of body, it runs immediately
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addListeners);
+  } else {
+    addListeners();
+  }
+
+  // For debugging: print current normalized path and pages
+  console.info('Swipe navigation active. Current path:', normalizePath(window.location.pathname));
+  console.info('Pages order:', PAGES);
+
+  //helper
+  function pageTransitionCube(targetPage, reverse = false) {
+    // Buat elemen animasi
+    const cube = document.createElement("div");
+    cube.className = "page-cube-transition";
+    if (reverse) cube.classList.add("reverse");
+    document.body.appendChild(cube);
+
+    // Trigger animasi masuk
+    setTimeout(() => {
+        cube.classList.add("active");
+    }, 10);
+
+    // Setelah animasi selesai → pindah halaman
+    setTimeout(() => {
+        window.location.href = targetPage;
+    }, 550);
+  }
+
+  function pageTransitionCubeDeep(targetPage, reverse = false) {
+    const cube = document.createElement("div");
+    cube.className = "page-cube-deep";
+    if (reverse) cube.classList.add("reverse");
+
+    document.body.appendChild(cube);
+
+    // Delay agar CSS transition aktif
+    setTimeout(() => cube.classList.add("active"), 20);
+
+    // Pindah halaman setelah animasi
+    setTimeout(() => window.location.href = targetPage, 750);
+}
+
+//Cube 4D
+function pageTransitionHypercube(targetPage, reverse = false) {
+    const t = document.createElement("div");
+    t.className = "page-hypercube";
+    if (reverse) t.classList.add("reverse");
+
+    document.body.appendChild(t);
+
+    // delay kecil untuk memicu animasi CSS
+    setTimeout(() => {
+        t.classList.add("active");
+    }, 20);
+
+    // pindah halaman ketika animasi selesai
+    setTimeout(() => {
+        window.location.href = targetPage;
+    }, 850);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopBtn = document.createElement("button");
+  backToTopBtn.textContent = "↑ Top";
+  backToTopBtn.id = "backToTop";
+  backToTopBtn.style.position = "fixed";
+  backToTopBtn.style.bottom = "20px";
+  backToTopBtn.style.right = "20px";
+  backToTopBtn.style.padding = "10px 14px";
+  backToTopBtn.style.fontSize = "16px";
+  backToTopBtn.style.border = "none";
+  backToTopBtn.style.borderRadius = "8px";
+  backToTopBtn.style.background = "#222";
+  backToTopBtn.style.color = "#fff";
+  backToTopBtn.style.cursor = "pointer";
+  backToTopBtn.style.opacity = "0";
+  backToTopBtn.style.transition = "opacity 0.3s ease";
+  backToTopBtn.style.zIndex = "9999";
+  document.body.appendChild(backToTopBtn);
+
+  const SHOW_AFTER = 400; // pixel kedalaman scroll untuk muncul tombol
+
+  // Tampilkan / sembunyikan tombol berdasarkan scroll
+  window.addEventListener("scroll", () => {
+    if (window.scrollY >= SHOW_AFTER) {
+      backToTopBtn.style.opacity = "1";
+    } else {
+      backToTopBtn.style.opacity = "0";
+    }
+  });
+
+  // Scroll ke atas saat diklik
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+
+})();
+
 
 })();

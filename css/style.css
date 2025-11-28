@@ -471,7 +471,147 @@ img {
     padding-top: 15px;
 }
 
+/* Animasi geser layar 3D Cube*/
+    /* ===== Cube 3D Page Transition ===== */
+    .page-cube-transition {
+        position: fixed;
+        inset: 0;
+        background: white;
+        transform-origin: left center;
+        transform: rotateY(-90deg);
+        transition: transform 0.6s ease;
+        z-index: 9999;
+        pointer-events: none;
+    }
+
+    .page-cube-transition.reverse {
+        transform-origin: right center;
+        transform: rotateY(90deg);
+    }
+
+    .page-cube-transition.active {
+        transform: rotateY(0deg);
+    }
+
+    /* ===== Deep 3D Cube Transition ===== */
+    .page-cube-deep {
+        position: fixed;
+        inset: 0;
+        background: white;
+        transform-origin: left center;
+        transform: rotateY(-90deg) translateZ(300px) scale(0.85);
+        transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 9999;
+        pointer-events: none;
+
+    /* Tambahan efek 3D */
+        perspective: 1200px;
+        box-shadow: 0 0 40px rgba(0,0,0,0.35);
+    }
+
+    .page-cube-deep.reverse {
+        transform-origin: right center;
+        transform: rotateY(90deg) translateZ(300px) scale(0.85);
+    }
+
+    .page-cube-deep.active {
+        transform: rotateY(0deg) translateZ(0) scale(1);
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+
+    /* ===== 4D Hypercube Page Transition ===== */
+    .page-hypercube {
+        position: fixed;
+        inset: 0;
+        background: white;
+        transform-style: preserve-3d;
+        z-index: 9999;
+        pointer-events: none;
+
+    /* starting pose: rotated on 3D + skew to simulate 4D */
+    transform-origin: center center;
+
+    /* efek 4D awal */
+    transform:
+        perspective(1400px)
+        rotateY(-90deg)
+        rotateX(35deg)
+        skewY(12deg)
+        translateZ(300px)
+        scale(0.7);
+
+    /* animasi */
+    transition: transform 0.9s cubic-bezier(0.18, 1, 0.22, 1),
+                filter 0.9s ease,
+                opacity 0.9s ease;
+
+    /* efek glow blur ketika "masuk dari dimensi lain" */
+    filter: blur(6px) brightness(0.5);
+    }
+
+    .page-hypercube.reverse {
+    transform:
+        perspective(1400px)
+        rotateY(90deg)
+        rotateX(-35deg)
+        skewY(-12deg)
+        translateZ(300px)
+        scale(0.7);
+    }
+
+    /* === posisi akhir (normal) === */
+    .page-hypercube.active {
+    transform:
+        perspective(1400px)
+        rotateY(0deg)
+        rotateX(0deg)
+        skewY(0deg)
+        translateZ(0px)
+        scale(1);
+
+    filter: blur(0) brightness(1);
+    opacity: 1;
+    }
+    
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const backToTopBtn = document.createElement("button");
+        backToTopBtn.textContent = "↑ Top";
+        backToTopBtn.id = "backToTop";
+        backToTopBtn.style.position = "fixed";
+        backToTopBtn.style.bottom = "20px";
+        backToTopBtn.style.right = "20px";
+        backToTopBtn.style.padding = "10px 14px";
+        backToTopBtn.style.fontSize = "16px";
+        backToTopBtn.style.border = "none";
+        backToTopBtn.style.borderRadius = "8px";
+        backToTopBtn.style.background = "#222";
+        backToTopBtn.style.color = "#fff";
+        backToTopBtn.style.cursor = "pointer";
+        backToTopBtn.style.opacity = "0";
+        backToTopBtn.style.transition = "opacity 0.3s ease";
+        backToTopBtn.style.zIndex = "9999";
+        document.body.appendChild(backToTopBtn);
+      
+        const SHOW_AFTER = 400; // pixel kedalaman scroll untuk muncul tombol
+      
+        // Tampilkan / sembunyikan tombol berdasarkan scroll
+        window.addEventListener("scroll", () => {
+          if (window.scrollY >= SHOW_AFTER) {
+            backToTopBtn.style.opacity = "1";
+          } else {
+            backToTopBtn.style.opacity = "0";
+          }
+        });
+      
+        // Scroll ke atas saat diklik
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+      
 /* ---------- Responsive ---------- */
+
 @media (max-width: 900px) {
     .nav-menu {
         position: absolute;
