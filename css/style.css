@@ -7,9 +7,9 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    line-height: 1.6;
+    line-height: 1.7;
     color: #333;
-    background-color: #fff;
+    background-color: #fffffff3;
 }
 
 img {
@@ -99,8 +99,8 @@ img {
 
 /* ---------- Page Header (Halaman Collection/About/Contact/Cart) ---------- */
 .page-header {
-    padding: 120px 0 50px;
-    background: #ded1cb;
+    padding: 130px 0 50px;
+    background: #c19885;
     text-align: center;
     margin-bottom: 40px;
 }
