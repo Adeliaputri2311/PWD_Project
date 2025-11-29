@@ -1,4 +1,5 @@
 /* ---------- Global Styles ---------- */
+
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +25,9 @@ img {
     margin: auto;
 }
 
+
 /* ---------- Navbar ---------- */
+
 .navbar {
     width: 100%;
     position: fixed;
@@ -66,7 +69,9 @@ img {
     color: #a45a5a;
 }
 
+
 /* Cart Style */
+
 .cart-link {
     position: relative;
 }
@@ -82,7 +87,9 @@ img {
     border-radius: 60%;
 }
 
+
 /* Hamburger */
+
 .hamburger {
     display: none;
     cursor: pointer;
@@ -97,7 +104,9 @@ img {
     transition: 0.4s;
 }
 
+
 /* ---------- Page Header (Halaman Collection/About/Contact/Cart) ---------- */
+
 .page-header {
     padding: 130px 0 50px;
     background: #9a7e71;
@@ -118,7 +127,9 @@ img {
     margin-top: 8px;
 }
 
+
 /* ---------- Hero Section ---------- */
+
 .hero {
     background: url("https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1200") center/cover no-repeat;
     height: 95vh;
@@ -147,7 +158,9 @@ img {
     margin-bottom: 28px;
 }
 
+
 /* ---------- Buttons ---------- */
+
 .btn {
     padding: 13px 27px;
     font-size: 14px;
@@ -178,7 +191,9 @@ img {
     color: #fff;
 }
 
+
 /* ---------- Featured Products ---------- */
+
 .featured-section {
     padding: 80px 0;
 }
@@ -208,7 +223,7 @@ img {
     background: #fff;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
     transition: 0.3s;
 }
 
@@ -277,7 +292,9 @@ img {
     background: #555;
 }
 
+
 /* ---------- Categories ---------- */
+
 .categories-section {
     padding: 60px 0;
 }
@@ -300,7 +317,7 @@ img {
     left: 0;
     width: 100%;
     padding: 25px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
     color: #fff;
 }
 
@@ -308,7 +325,9 @@ img {
     margin-bottom: 10px;
 }
 
+
 /* ---------- COLLECTION FILTERS ---------- */
+
 .filters {
     display: flex;
     justify-content: flex-end;
@@ -324,7 +343,9 @@ img {
     cursor: pointer;
 }
 
+
 /* ---------- ABOUT PAGE ---------- */
+
 .about-section {
     padding: 60px 0;
 }
@@ -358,10 +379,12 @@ img {
 
 .about-image img {
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
+
 /* ---------- CONTACT PAGE ---------- */
+
 .contact-section {
     padding: 60px 0;
 }
@@ -398,7 +421,9 @@ img {
     outline: none;
 }
 
+
 /* ---------- CART PAGE ---------- */
+
 .cart-section {
     padding: 60px 0;
 }
@@ -435,7 +460,9 @@ img {
     color: #b96c6c;
 }
 
+
 /* ---------- Footer ---------- */
+
 .footer {
     background: #070606;
     color: #fff;
@@ -471,145 +498,93 @@ img {
     padding-top: 15px;
 }
 
+
 /* Animasi geser layar 3D Cube*/
-    /* ===== Cube 3D Page Transition ===== */
-    .page-cube-transition {
-        position: fixed;
-        inset: 0;
-        background: white;
-        transform-origin: left center;
-        transform: rotateY(-90deg);
-        transition: transform 0.6s ease;
-        z-index: 9999;
-        pointer-events: none;
-    }
 
-    .page-cube-transition.reverse {
-        transform-origin: right center;
-        transform: rotateY(90deg);
-    }
 
-    .page-cube-transition.active {
-        transform: rotateY(0deg);
-    }
+/* ===== Cube 3D Page Transition ===== */
 
-    /* ===== Deep 3D Cube Transition ===== */
-    .page-cube-deep {
-        position: fixed;
-        inset: 0;
-        background: white;
-        transform-origin: left center;
-        transform: rotateY(-90deg) translateZ(300px) scale(0.85);
-        transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        z-index: 9999;
-        pointer-events: none;
+.page-cube-transition {
+    position: fixed;
+    inset: 0;
+    background: white;
+    transform-origin: left center;
+    transform: rotateY(-90deg);
+    transition: transform 0.6s ease;
+    z-index: 9999;
+    pointer-events: none;
+}
 
+.page-cube-transition.reverse {
+    transform-origin: right center;
+    transform: rotateY(90deg);
+}
+
+.page-cube-transition.active {
+    transform: rotateY(0deg);
+}
+
+
+/* ===== Deep 3D Cube Transition ===== */
+
+.page-cube-deep {
+    position: fixed;
+    inset: 0;
+    background: white;
+    transform-origin: left center;
+    transform: rotateY(-90deg) translateZ(300px) scale(0.85);
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 9999;
+    pointer-events: none;
     /* Tambahan efek 3D */
-        perspective: 1200px;
-        box-shadow: 0 0 40px rgba(0,0,0,0.35);
-    }
+    perspective: 1200px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+}
 
-    .page-cube-deep.reverse {
-        transform-origin: right center;
-        transform: rotateY(90deg) translateZ(300px) scale(0.85);
-    }
+.page-cube-deep.reverse {
+    transform-origin: right center;
+    transform: rotateY(90deg) translateZ(300px) scale(0.85);
+}
 
-    .page-cube-deep.active {
-        transform: rotateY(0deg) translateZ(0) scale(1);
-        box-shadow: 0 0 0 rgba(0,0,0,0);
-    }
+.page-cube-deep.active {
+    transform: rotateY(0deg) translateZ(0) scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
 
-    /* ===== 4D Hypercube Page Transition ===== */
-    .page-hypercube {
-        position: fixed;
-        inset: 0;
-        background: white;
-        transform-style: preserve-3d;
-        z-index: 9999;
-        pointer-events: none;
 
+/* ===== 4D Hypercube Page Transition ===== */
+
+.page-hypercube {
+    position: fixed;
+    inset: 0;
+    background: white;
+    transform-style: preserve-3d;
+    z-index: 9999;
+    pointer-events: none;
     /* starting pose: rotated on 3D + skew to simulate 4D */
     transform-origin: center center;
-
     /* efek 4D awal */
-    transform:
-        perspective(1400px)
-        rotateY(-90deg)
-        rotateX(35deg)
-        skewY(12deg)
-        translateZ(300px)
-        scale(0.7);
-
+    transform: perspective(1400px) rotateY(-90deg) rotateX(35deg) skewY(12deg) translateZ(300px) scale(0.7);
     /* animasi */
-    transition: transform 0.9s cubic-bezier(0.18, 1, 0.22, 1),
-                filter 0.9s ease,
-                opacity 0.9s ease;
-
+    transition: transform 0.9s cubic-bezier(0.18, 1, 0.22, 1), filter 0.9s ease, opacity 0.9s ease;
     /* efek glow blur ketika "masuk dari dimensi lain" */
     filter: blur(6px) brightness(0.5);
-    }
+}
 
-    .page-hypercube.reverse {
-    transform:
-        perspective(1400px)
-        rotateY(90deg)
-        rotateX(-35deg)
-        skewY(-12deg)
-        translateZ(300px)
-        scale(0.7);
-    }
+.page-hypercube.reverse {
+    transform: perspective(1400px) rotateY(90deg) rotateX(-35deg) skewY(-12deg) translateZ(300px) scale(0.7);
+}
 
-    /* === posisi akhir (normal) === */
-    .page-hypercube.active {
-    transform:
-        perspective(1400px)
-        rotateY(0deg)
-        rotateX(0deg)
-        skewY(0deg)
-        translateZ(0px)
-        scale(1);
 
+/* === posisi akhir (normal) === */
+
+.page-hypercube.active {
+    transform: perspective(1400px) rotateY(0deg) rotateX(0deg) skewY(0deg) translateZ(0px) scale(1);
     filter: blur(0) brightness(1);
     opacity: 1;
-    }
-    
+}
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const backToTopBtn = document.createElement("button");
-        backToTopBtn.textContent = "↑ Top";
-        backToTopBtn.id = "backToTop";
-        backToTopBtn.style.position = "fixed";
-        backToTopBtn.style.bottom = "20px";
-        backToTopBtn.style.right = "20px";
-        backToTopBtn.style.padding = "10px 14px";
-        backToTopBtn.style.fontSize = "16px";
-        backToTopBtn.style.border = "none";
-        backToTopBtn.style.borderRadius = "8px";
-        backToTopBtn.style.background = "#222";
-        backToTopBtn.style.color = "#fff";
-        backToTopBtn.style.cursor = "pointer";
-        backToTopBtn.style.opacity = "0";
-        backToTopBtn.style.transition = "opacity 0.3s ease";
-        backToTopBtn.style.zIndex = "9999";
-        document.body.appendChild(backToTopBtn);
-      
-        const SHOW_AFTER = 400; // pixel kedalaman scroll untuk muncul tombol
-      
-        // Tampilkan / sembunyikan tombol berdasarkan scroll
-        window.addEventListener("scroll", () => {
-          if (window.scrollY >= SHOW_AFTER) {
-            backToTopBtn.style.opacity = "1";
-          } else {
-            backToTopBtn.style.opacity = "0";
-          }
-        });
-      
-        // Scroll ke atas saat diklik
-        backToTopBtn.addEventListener("click", () => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      });
-      
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
@@ -624,24 +599,19 @@ img {
         display: none;
         box-shadow: 0 5px 15px rgba(224, 0, 0, 0.906);
     }
-
     .nav-menu.show {
         display: flex;
     }
-
     .hamburger {
         display: block;
     }
-
     .hero-title {
         font-size: 42px;
     }
-
     .about-grid,
     .contact-grid {
         grid-template-columns: 1fr;
     }
-
     .filters {
         justify-content: space-between;
     }
