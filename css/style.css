@@ -7,7 +7,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    line-height: 1.9;
+    line-height: 1.10;
     color: #242323;
     background-color: #fffffff3;
 }
@@ -58,12 +58,12 @@ img {
     text-decoration: none;
     color: #121212;
     font-weight: 500;
-    transition: 0.4s;
+    transition: 0.5s;
 }
 
 .nav-menu li a:hover,
 .nav-menu .active {
-    color: #b96c6c;
+    color: #a45a5a;
 }
 
 /* Cart Style */
@@ -73,11 +73,11 @@ img {
 
 .cart-count {
     position: absolute;
-    top: -10px;
+    top: -11px;
     right: -14px;
     background: #b96c6c;
     color: #fff;
-    font-size: 12px;
+    font-size: 13px;
     padding: 2px 6px;
     border-radius: 60%;
 }
@@ -89,7 +89,7 @@ img {
 }
 
 .hamburger span {
-    width: 29px;
+    width: 30px;
     height: 3px;
     background: #333;
     display: block;
