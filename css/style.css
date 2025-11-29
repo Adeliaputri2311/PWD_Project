@@ -9,8 +9,8 @@
 body {
     font-family: "Poppins", sans-serif;
     line-height: 1.10;
-    color: #242323;
-    background-color: #fffffff3;
+    color: #f1dada;
+    background-color: #d16565f3;
 }
 
 img {
@@ -32,7 +32,7 @@ img {
     width: 100%;
     position: fixed;
     top: 0;
-    background: #fff;
+    background: #ffadad;
     padding: 20px 0;
     box-shadow: 0 2px 10px rgba(6, 6, 6, 0.338);
     z-index: 1000;
@@ -109,7 +109,7 @@ img {
 
 .page-header {
     padding: 130px 0 50px;
-    background: #9a7e71;
+    background: #f88383;
     text-align: center;
     margin-bottom: 40px;
 }
@@ -118,12 +118,12 @@ img {
     font-family: "Playfair Display", serif;
     font-size: 43px;
     font-weight: 701;
-    color: #151515;
+    color: #ffffff;
 }
 
 .page-subtitle {
     font-size: 16px;
-    color: #666;
+    color: #e0abab;
     margin-top: 8px;
 }
 
@@ -361,7 +361,7 @@ img {
     font-family: "Playfair Display", serif;
     font-size: 26px;
     margin-bottom: 10px;
-    color: #222;
+    color: #ffffff;
 }
 
 .about-text p {
@@ -437,12 +437,12 @@ img {
 .cart-table th,
 .cart-table td {
     padding: 14px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ffffff;
     text-align: center;
 }
 
 .cart-table th {
-    background: #f8f4f3;
+    background: #b65b5b;
     font-weight: 600;
 }
 
@@ -450,21 +450,21 @@ img {
     display: flex;
     justify-content: space-between;
     padding: 25px;
-    background: #f7f5f4;
+    background: #b65b5b;
     border-radius: 15px;
 }
 
 .total-price {
     font-size: 22px;
     font-weight: 700;
-    color: #b96c6c;
+    color: #fdc7c7;
 }
 
 
 /* ---------- Footer ---------- */
 
 .footer {
-    background: #070606;
+    background: #e7acac;
     color: #fff;
     padding: 60px 0 30px;
     margin-top: 60px;
@@ -530,7 +530,7 @@ img {
 .page-cube-deep {
     position: fixed;
     inset: 0;
-    background: white;
+    background: rgb(218, 137, 137);
     transform-origin: left center;
     transform: rotateY(-90deg) translateZ(300px) scale(0.85);
     transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
@@ -557,7 +557,7 @@ img {
 .page-hypercube {
     position: fixed;
     inset: 0;
-    background: white;
+    background: rgb(226, 120, 120);
     transform-style: preserve-3d;
     z-index: 9999;
     pointer-events: none;
