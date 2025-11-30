@@ -51,25 +51,28 @@
 <section class="collection-section">
     <div class="container">
         <div class="filters">
-            <select class="filter-select">
-                <option>Semua Kategori</option>
-                <option>Dresses</option>
-                <option>Tops & Blouses</option>
-                <option>Skirts</option>
-                <option>Accessories</option>
+            <select id="categorySelect" class="filter-select">
+                <option value="all">Semua Kategori</option>
+                <option value="Dresses">Dresses</option>
+                <option value="Tops & Blouses">Tops & Blouses</option>
+                <option value="Skirts">Skirts</option>
+                <option value="Accessories">Accessories</option>
             </select>
 
-            <select class="filter-select">
-                <option>Urutkan</option>
-                <option>Harga Terendah</option>
-                <option>Harga Tertinggi</option>
-                <option>Terbaru</option>
+            
+            <select id="sortSelect" class="filter-select">
+                <option value="">Urutkan</option>
+                <option value="price-asc">Harga Terendah</option>
+                <option value="price-desc">Harga Tertinggi</option>
+                <option value="newest">Produk Terbaru</option>
+                <option value="oldest">Produk Terlama</option>
             </select>
+            
         </div>
 
-        <div class="product-grid">
-            <!-- Card Produk Contoh -->
-            <div class="product-card">
+        <div id="productGrid" class="product-grid">
+
+            <div class="product-card" data-price="260000" data-date="2024-11-01" data-category="Tops & Blouses">
                 <div class="product-image">
                     <img src="images/catalog 8.jpg" alt="Elegant Dress">
                 </div>
@@ -82,7 +85,8 @@
                     </div>
                 </div>
             </div>
-            <div class="product-card">
+        
+            <div class="product-card" data-price="390000" data-date="2024-09-01" data-category="Dresses">
                 <div class="product-image">
                     <img src="images/catalog 2.jpg" alt="Elegant Dress">
                 </div>
@@ -95,7 +99,8 @@
                     </div>
                 </div>
             </div>
-            <div class="product-card">
+        
+            <div class="product-card" data-price="268000" data-date="2024-08-10" data-category="Dresses">
                 <div class="product-image">
                     <img src="images/catalog 3.jpg" alt="Elegant Dress">
                 </div>
@@ -108,7 +113,8 @@
                     </div>
                 </div>
             </div>
-            <div class="product-card">
+        
+            <div class="product-card" data-price="320000" data-date="2024-07-20" data-category="Dresses">
                 <div class="product-image">
                     <img src="images/catalog 4.jpg" alt="Elegant Dress">
                 </div>
@@ -121,7 +127,8 @@
                     </div>
                 </div>
             </div>
-            <div class="product-card">
+        
+            <div class="product-card" data-price="330000" data-date="2024-10-01" data-category="Dresses">
                 <div class="product-image">
                     <img src="images/catalog 5.jpg" alt="Elegant Dress">
                 </div>
@@ -134,7 +141,8 @@
                     </div>
                 </div>
             </div>
-            <div class="product-card">
+        
+            <div class="product-card" data-price="299000" data-date="2024-10-16" data-category="Dresses">
                 <div class="product-image">
                     <img src="images/catalog 6.jpg" alt="Elegant Dress">
                 </div>
@@ -147,7 +155,8 @@
                     </div>
                 </div>
             </div>
-            <div class="product-card">
+        
+            <div class="product-card" data-price="415000" data-date="2024-06-12" data-category="Dresses">
                 <div class="product-image">
                     <img src="images/catalog 7.jpg" alt="Elegant Dress">
                 </div>
@@ -160,7 +169,8 @@
                     </div>
                 </div>
             </div>
-            <div class="product-card">
+        
+            <div class="product-card" data-price="340000" data-date="2024-11-12" data-category="Dresses">
                 <div class="product-image">
                     <img src="images/catalog 8.jpg" alt="Elegant Dress">
                 </div>
@@ -173,7 +183,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Tambahkan produk lain di sini -->
+        </div>
+                    <!-- Tambahkan produk lain di sini -->
         </div>
     </div>
 </section>
@@ -208,8 +219,63 @@
         </div>
     </div>
 </footer>
+    
+<script>
+const categorySelect = document.getElementById("categorySelect");
+const sortSelect = document.getElementById("sortSelect");
+const container = document.getElementById("productGrid");
+const allProducts = Array.from(container.querySelectorAll(".product-card"));
 
-<script src="js/script.js"></script>
+// Update tampilan setelah filter atau sort
+function updateDisplay() {
+    let filtered = allProducts;
+
+    // === FILTER KATEGORI ===
+    const selectedCategory = categorySelect.value;
+
+    if (selectedCategory !== "all") {
+        filtered = allProducts.filter(product => 
+            product.dataset.category === selectedCategory
+        );
+    }
+
+    // === SORTING ===
+    const sortType = sortSelect.value;
+
+    switch (sortType) {
+        case "price-asc":
+            filtered = filtered.sort((a, b) => a.dataset.price - b.dataset.price);
+            break;
+
+        case "price-desc":
+            filtered = filtered.sort((a, b) => b.dataset.price - a.dataset.price);
+            break;
+
+        case "newest":
+            filtered = filtered.sort((a, b) =>
+                new Date(b.dataset.date) - new Date(a.dataset.date)
+            );
+            break;
+
+        case "oldest":
+            filtered = filtered.sort((a, b) =>
+                new Date(a.dataset.date) - new Date(b.dataset.date)
+            );
+            break;
+    }
+
+    // Render ulang
+    container.innerHTML = "";
+    filtered.forEach(p => container.appendChild(p));
+}
+
+// Event listener
+categorySelect.addEventListener("change", updateDisplay);
+sortSelect.addEventListener("change", updateDisplay);
+    </script>
+    
+    <script src="js/script.js"></script>
+    
 </body>
 
 </html>

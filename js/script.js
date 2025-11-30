@@ -381,241 +381,218 @@ const THRESHOLD = 70;
     };
 
     // Swipe gesture
-    (function() {
-        'use strict';
-
-        function startDrag(x) {
-            isDragging = true;
-            startX = x;
-        }
-
-        function moveDrag(x) {
-            currentX = x - startX;
-        }
-
-        function triggerNavigation(fn) {
-            // lock agar tidak double navigation
-            if (isDragging) return;
-            fn();
-        }
-
-        // pages order (sesuaikan urutan)
-        const PAGES = ["index.html", "collection.html", "about.html", "contact.html"];
-
-        // fallback: juga anggap path '' atau '/' sebagai index
-        function normalizePath(p) {
-            if (!p || p === '/') return 'index.html';
-            // remove query string or hash
-            const clean = p.split('?')[0].split('#')[0];
-            // if path ends with '/', treat as index
-            if (clean.endsWith('/')) return 'index.html';
-            return clean.split('/').pop();
-        }
-
-        // Get overlay element and guard
-        const overlay = document.getElementById('transition-overlay');
-        if (!overlay) {
-            console.warn('transition-overlay not found. Pastikan <div id="transition-overlay"></div> ada di dalam <body>.');
-        }
-
-        // Gesture state
-        let startX = 0;
-
-        document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-        document.addEventListener("touchend", e => {
-            const endX = e.changedTouches[0].clientX;
-
-            if (startX - endX > 80) goNextPage(); // swipe kiri
-            if (endX - startX > 80) goPrevPage(); // swipe kanan
-        });
-
-        document.addEventListener("mousedown", e => startX = e.clientX);
-        document.addEventListener("mouseup", e => {
-            if (startX - e.clientX > 80) goNextPage();
-            if (e.clientX - startX > 80) goPrevPage();
-        });
-
-
-        // Simple debounce to avoid double navigation
-        function triggerNavigation(fn) {
-            if (triggered) return;
-            triggered = true;
-            try {
-                fn();
-            } catch (e) {
-                console.error(e);
-                triggered = false;
-            }
-            // safety reset jika masih di halaman yang sama (rare)
-            setTimeout(() => { triggered = false; }, 2000);
-        }
-
-        // Start / Move / End
-        function startDrag(x) {
-            // ignore if clicking on form elements
-            const el = getEventTargetElement();
-            if (el && /input|textarea|select|button/i.test(el.tagName)) {
-                return;
-            }
-            startX = x;
-            currentX = 0;
-            isDragging = true;
-        }
-
-        function moveDrag(x) {
-            if (!isDragging) return;
-            currentX = x - startX;
-        }
-
-        function endDrag() {
-            if (!isDragging) return;
-            isDragging = false;
-
-            if (Math.abs(currentX) < THRESHOLD) {
-                currentX = 0;
-                return;
-            }
-
-            if (currentX < -THRESHOLD) {
-                triggerNavigation(goNextPage);
-            } else if (currentX > THRESHOLD) {
-                triggerNavigation(goPrevPage);
-            }
-            currentX = 0;
-        }
-
-        // Helpers
-        function getEventTargetElement() {
-            // last active element that user interacted with; fallback document.activeElement
-            return document.activeElement || null;
-        }
-
-        function pageTransition(targetUrl) {
-            if (!overlay) {
-                // fallback: langsung pindah
-                window.location.href = targetUrl;
-                return;
-            }
-            // aktifkan overlay lalu navigasi
-            overlay.classList.add('active');
-
-            // optional: beri sedikit delay agar transition terlihat natural
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 380);
-        }
-
-        function goNextPage() {
-            const pages = ["index.html", "collection.html", "about.html", "contact.html"];
-            const current = window.location.pathname.split("/").pop();
-            let idx = pages.indexOf(current);
-
-            const next = (idx === pages.length - 1) ? pages[0] : pages[idx + 1];
-            pageTransitionHypercube(next, false);
-        }
-
-        function goPrevPage() {
-            const pages = ["index.html", "collection.html", "about.html", "contact.html"];
-            const current = window.location.pathname.split("/").pop();
-            let idx = pages.indexOf(current);
-
-            const prev = (idx === 0) ? pages[pages.length - 1] : pages[idx - 1];
-            pageTransitionHypercube(prev, true);
-        }
-
-
-        // Attach events after DOM ready to be safe
-        function addListeners() {
-            // Touch events (mobile)
-            document.addEventListener('touchstart', function(e) {
-                if (!e.touches || e.touches.length > 1) return; // ignore multi-touch
-                startDrag(e.touches[0].clientX);
-            }, { passive: true });
-
-            document.addEventListener('touchmove', function(e) {
-                if (!isDragging) return;
-                moveDrag(e.touches[0].clientX);
-            }, { passive: true });
-
-            document.addEventListener('touchend', function() {
-                endDrag();
-            }, { passive: true });
-
-            // Mouse events (desktop)
-            document.addEventListener('mousedown', function(e) {
-                // left button only
-                if (e.button !== 0) return;
-                startDrag(e.clientX);
-            });
-
-            document.addEventListener('mousemove', function(e) {
-                if (!isDragging) return;
-                moveDrag(e.clientX);
-            });
-
-            document.addEventListener('mouseup', function() {
-                endDrag();
-            });
-
-            document.addEventListener('mouseleave', function() {
-                // treat leaving window as end
-                if (isDragging) endDrag();
-            });
-
-            // Optional: keyboard arrows for desktop (left/right)
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    triggerNavigation(goPrevPage);
-                } else if (e.key === 'ArrowRight') {
-                    triggerNavigation(goNextPage);
-                }
-            });
-        }
-
-        // Wait DOMContentLoaded if script placed in head; if script is at end of body, it runs immediately
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', addListeners);
+// ---------------- Swipe navigation (rapi & aman untuk UI interaktif) ----------------
+(function () {
+    'use strict';
+  
+    // ---------- Konfigurasi ----------
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let triggered = false; // debounce untuk navigasi
+    const THRESHOLD = 70; // minimal px untuk dianggap swipe
+  
+    const PAGES = ["index.html", "collection.html", "about.html", "contact.html"];
+    const OVERLAY_ID = 'transition-overlay'; // id overlay transisi (opsional)
+  
+    // ---------- Helper pengecualian (elemen UI yang tidak boleh memicu swipe) ----------
+    function isInteractiveElement(target) {
+      if (!target) return false;
+  
+      // cek langsung elemen interaktif atau bila berada di dalamnya
+      const interactiveSelectors = [
+        'select', 'option',
+        'button', '.btn-add-cart',
+        'input', 'textarea', 'label',
+        '.filter-select', // class dropdownmu
+        '.filters'        // container filter (aman)
+      ];
+  
+      for (const sel of interactiveSelectors) {
+        // if sel starts with '.' use closest class matching
+        if (sel.startsWith('.')) {
+          if (target.closest(sel)) return true;
         } else {
-            addListeners();
+          if (target.closest(sel)) return true;
         }
-
-        // For debugging: print current normalized path and pages
-        console.info('Swipe navigation active. Current path:', normalizePath(window.location.pathname));
-        console.info('Pages order:', PAGES);
-
-        //helper
-        function pageTransitionCube(targetPage, reverse = false) {
-            // Buat elemen animasi
-            const cube = document.createElement("div");
-            cube.className = "page-cube-transition";
-            if (reverse) cube.classList.add("reverse");
-            document.body.appendChild(cube);
-
-            // Trigger animasi masuk
-            setTimeout(() => {
-                cube.classList.add("active");
-            }, 10);
-
-            // Setelah animasi selesai → pindah halaman
-            setTimeout(() => {
-                window.location.href = targetPage;
-            }, 550);
-        }
-
-        function pageTransitionCubeDeep(targetPage, reverse = false) {
-            const cube = document.createElement("div");
-            cube.className = "page-cube-deep";
-            if (reverse) cube.classList.add("reverse");
-
-            document.body.appendChild(cube);
-
-            // Delay agar CSS transition aktif
-            setTimeout(() => cube.classList.add("active"), 20);
-
-            // Pindah halaman setelah animasi
-            setTimeout(() => window.location.href = targetPage, 750);
-        }
-
+      }
+  
+      // anchor link juga dianggap interaktif
+      if (target.closest('a')) return true;
+  
+      return false;
+    }
+  
+    // ---------- Navigation / Transitions ----------
+    const overlay = document.getElementById(OVERLAY_ID);
+  
+    function pageTransitionHypercube(targetPage, reverse = false) {
+      if (!targetPage) { window.location.href = targetPage; return; }
+      // jika overlay ada, gunakan animasi hypercube; jika tidak, langsung navigasi
+      if (!overlay) {
+        // buat elemen hypercube sederhana agar konsisten
+        const t = document.createElement("div");
+        t.className = "page-hypercube";
+        if (reverse) t.classList.add("reverse");
+        document.body.appendChild(t);
+        setTimeout(() => t.classList.add("active"), 20);
+        setTimeout(() => (window.location.href = targetPage), 850);
+        return;
+      }
+  
+      // bila overlay ada: aktifkan lalu navigasi
+      overlay.classList.add('active');
+      setTimeout(() => { window.location.href = targetPage; }, 380);
+    }
+  
+    function normalizePath(p) {
+      if (!p || p === '/') return 'index.html';
+      const clean = p.split('?')[0].split('#')[0];
+      if (clean.endsWith('/')) return 'index.html';
+      return clean.split('/').pop();
+    }
+  
+    function goNextPage() {
+      const pages = PAGES;
+      const current = window.location.pathname.split("/").pop() || 'index.html';
+      let idx = pages.indexOf(current);
+      if (idx === -1) idx = pages.indexOf(normalizePath(current));
+      const next = (idx === pages.length - 1 || idx === -1) ? pages[0] : pages[idx + 1];
+      pageTransitionHypercube(next, false);
+    }
+  
+    function goPrevPage() {
+      const pages = PAGES;
+      const current = window.location.pathname.split("/").pop() || 'index.html';
+      let idx = pages.indexOf(current);
+      if (idx === -1) idx = pages.indexOf(normalizePath(current));
+      const prev = (idx === 0 || idx === -1) ? pages[pages.length - 1] : pages[idx - 1];
+      pageTransitionHypercube(prev, true);
+    }
+  
+    // debounce simple: mencegah double navigation
+    function triggerNavigation(fn) {
+      if (triggered) return;
+      triggered = true;
+      try {
+        fn();
+      } catch (err) {
+        console.error(err);
+        triggered = false;
+      }
+      setTimeout(() => { triggered = false; }, 1600); // lock sementara
+    }
+  
+    // ---------- Drag lifecycle ----------
+    function startDrag(x, event) {
+      // jika klik / sentuh pada elemen interaktif => abort
+      if (isInteractiveElement(event && event.target)) return;
+      isDragging = true;
+      startX = Number(x) || 0;
+      currentX = 0;
+    }
+  
+    function moveDrag(x) {
+      if (!isDragging) return;
+      currentX = Number(x) - startX;
+    }
+  
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+  
+      if (Math.abs(currentX) < THRESHOLD) {
+        currentX = 0;
+        return;
+      }
+  
+      if (currentX < -THRESHOLD) {
+        triggerNavigation(goNextPage);
+      } else if (currentX > THRESHOLD) {
+        triggerNavigation(goPrevPage);
+      }
+      currentX = 0;
+    }
+  
+    // ---------- Event listeners (touch + mouse + keyboard) ----------
+    function onTouchStart(e) {
+      if (!e.touches || e.touches.length > 1) return;
+      if (isInteractiveElement(e.target)) return;
+      startDrag(e.touches[0].clientX, e);
+    }
+  
+    function onTouchMove(e) {
+      if (!isDragging || !e.touches || e.touches.length === 0) return;
+      moveDrag(e.touches[0].clientX);
+    }
+  
+    function onTouchEnd(e) {
+      // target of touchend may be different; we mainly rely on currentX
+      endDrag();
+    }
+  
+    function onMouseDown(e) {
+      if (e.button !== 0) return; // left click only
+      if (isInteractiveElement(e.target)) return;
+      startDrag(e.clientX, e);
+    }
+  
+    function onMouseMove(e) {
+      if (!isDragging) return;
+      moveDrag(e.clientX);
+    }
+  
+    function onMouseUp(e) {
+      // if mouseup happened on interactive element we still evaluate drag end
+      endDrag();
+    }
+  
+    function onKeyDown(e) {
+      if (e.key === 'ArrowLeft') triggerNavigation(goPrevPage);
+      else if (e.key === 'ArrowRight') triggerNavigation(goNextPage);
+    }
+  
+    function addListeners() {
+      // touch
+      document.addEventListener('touchstart', onTouchStart, { passive: true });
+      document.addEventListener('touchmove', onTouchMove, { passive: true });
+      document.addEventListener('touchend', onTouchEnd, { passive: true });
+  
+      // mouse
+      document.addEventListener('mousedown', onMouseDown);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+      document.addEventListener('mouseleave', () => { if (isDragging) endDrag(); });
+  
+      // keyboard
+      document.addEventListener('keydown', onKeyDown);
+  
+      // small safety: prevent propagation when interacting with selects/filters
+      // (this is optional but helps with complex UI nesting)
+      document.querySelectorAll('.filter-select, select, .filters, .btn-add-cart').forEach(el => {
+        el.addEventListener('click', (ev) => ev.stopPropagation());
+        el.addEventListener('mousedown', (ev) => ev.stopPropagation());
+        el.addEventListener('touchstart', (ev) => ev.stopPropagation());
+      });
+    }
+  
+    // attach after DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', addListeners);
+    } else {
+      addListeners();
+    }
+  
+    // debugging info
+    console.info('Swipe/navigation (safe) active. Current:', normalizePath(window.location.pathname), 'Pages:', PAGES);
+  
+    // expose for debug (opsional)
+    window._swipeNav = {
+      goNextPage,
+      goPrevPage,
+      isDragging: () => isDragging
+    };
+    
         //Cube 4D
         function pageTransitionHypercube(targetPage, reverse = false) {
             const t = document.createElement("div");
@@ -671,8 +648,6 @@ const THRESHOLD = 70;
           backToTopBtn.addEventListener("click", () => {
               window.scrollTo({ top: 0, behavior: "smooth" });
           });
-          
-          });
-          
-    })();
+        })
+      })(); 
 })();
